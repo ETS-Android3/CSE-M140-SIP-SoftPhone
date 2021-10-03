@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
         app = application as TheApp
         binding.actions = this
 
+        app.state.reg.observe(this) { state ->
+            binding.regState = state
+        }
+
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                 arrayOf(Manifest.permission.RECORD_AUDIO),
@@ -71,6 +75,7 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
                     ContactsContract.Contacts.CONTENT_URI
                 )
             )
+            MainActivityActions.ACTION_REG_RETRY -> app.createAccountIfPossible(true)
         }
     }
 }
@@ -79,6 +84,7 @@ interface MainActivityActions {
     companion object {
         const val ACTION_OPEN_PREF = 1
         const val ACTION_OPEN_CONT = 2
+        const val ACTION_REG_RETRY = 3
     }
 
     fun actFor(act: Int)

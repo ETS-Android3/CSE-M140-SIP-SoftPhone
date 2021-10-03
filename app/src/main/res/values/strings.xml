@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SIP Dialer</string>
+    <string name="reg_status_fmt_ok">Registration %s</string>
+    <string name="retry">Try Again</string>
 </resources>

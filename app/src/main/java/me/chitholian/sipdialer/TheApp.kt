@@ -8,10 +8,12 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
     lateinit var sipUa: SipUserAgent
     lateinit var prefs: SharedPreferences
     private var account: TheAccount? = null
+    val state = AppState()
 
     override fun onCreate() {
         super.onCreate()
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.registerOnSharedPreferenceChangeListener(this)
         sipUa = SipUserAgent(this)
     }
 
@@ -30,7 +32,7 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
         }
     }
 
-    private fun createAccountIfPossible(force: Boolean = false) {
+    fun createAccountIfPossible(force: Boolean = false) {
         if (account != null && !force) return
         val username = prefs.getString(Constants.KEY_USERNAME, "") ?: ""
         val server = prefs.getString(Constants.KEY_SERVER, "") ?: ""
