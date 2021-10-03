@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="me.chitholian.sipdialer.R" />
+
+        <variable
+            name="regStatus"
+            type="me.chitholian.sipdialer.RegState" />
+
+        <variable
+            name="actions"
+            type="me.chitholian.sipdialer.MainActivityActions" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/prefTabBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_PREF)}"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_settings"
+                android:tint="?android:colorBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/contactsTabBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_CONT)}"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_account_circle"
+                android:tint="?android:colorBackground"
+                app:layout_constraintEnd_toStartOf="@id/prefTabBtn"
+                app:layout_constraintStart_toEndOf="@id/dialerTabBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/dialerTabBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dialer_sip"
+                android:tint="@android:color/holo_green_light"
+                app:layout_constraintEnd_toStartOf="@id/contactsTabBtn"
+                app:layout_constraintStart_toEndOf="@id/reg_status_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/reg_status_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:src="@{regStatus.registered ? R.drawable.ic_check_circle : R.drawable.ic_error }"
+                android:tint="@{regStatus.registered ? android.R.color.holo_green_light : android.R.color.holo_red_light}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

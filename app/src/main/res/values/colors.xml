@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#2196F3</color>
+    <color name="primaryAlt">#1976D2</color>
+    <color name="secondary">#4CAF50</color>
+    <color name="secondaryAlt">#388E3C</color>
+    <color name="colorOnPrimary">#FFF</color>
+    <color name="colorOnSecondary">#FFF</color>
+
+    <color name="primaryDark">#303F9F</color>
+    <color name="primaryAltDark">#1A237E</color>
+    <color name="secondaryDark">#1B5E20</color>
+    <color name="secondaryAltDark">#2E7D32</color>
+    <color name="colorOnPrimaryDark">#FFF</color>
+
+</resources>

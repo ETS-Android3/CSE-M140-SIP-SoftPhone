@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:icon="@drawable/ic_account_circle"
+        app:key="key_username"
+        app:title="SIP Username"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:icon="@drawable/ic_key"
+        app:key="key_password"
+        app:title="SIP Password"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:icon="@drawable/ic_computer"
+        app:key="key_server"
+        app:title="SIP Server"
+        app:useSimpleSummaryProvider="true" />
+
+    <EditTextPreference
+        android:icon="@drawable/ic_cloud"
+        app:key="key_proxy"
+        app:title="SIP Proxy"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>
