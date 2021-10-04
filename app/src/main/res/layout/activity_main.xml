@@ -8,6 +8,14 @@
 
         <import type="android.view.View" />
 
+        <import type="me.chitholian.sipdialer.Constants" />
+
+        <import type="android.text.InputType" />
+
+        <variable
+            name="mode"
+            type="int" />
+
         <variable
             name="regState"
             type="me.chitholian.sipdialer.RegState" />
@@ -17,97 +25,133 @@
             type="me.chitholian.sipdialer.MainActivityActions" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_activity_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?colorPrimary">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/prefTabBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_PREF)}"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_settings"
-                android:tint="?android:colorBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/contactsTabBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_CONT)}"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_account_circle"
-                android:tint="?android:colorBackground"
-                app:layout_constraintEnd_toStartOf="@id/prefTabBtn"
-                app:layout_constraintStart_toEndOf="@id/dialerTabBtn"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/dialerTabBtn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_dialer_sip"
-                android:tint="@android:color/holo_green_light"
-                app:layout_constraintEnd_toStartOf="@id/contactsTabBtn"
-                app:layout_constraintStart_toEndOf="@id/reg_status_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/reg_status_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="5dp"
-                android:background="@android:color/transparent"
-                android:scaleType="centerInside"
-                android:src="@{regState.registered ? @drawable/ic_check_circle : @drawable/ic_error }"
-                android:tint="@{regState.registered ? @android:color/holo_green_light : @android:color/holo_red_light}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:visibility="@{regState.pending ? View.GONE : View.VISIBLE}">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.format(@string/reg_status_fmt_ok, regState.reason)}"
-                android:textColor="@{regState.registered ? @android:color/holo_green_dark : @android:color/holo_red_dark}" />
+                android:background="?colorPrimary">
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/prefTabBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="5dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_PREF)}"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_settings"
+                    android:tint="?android:colorBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/contactsTabBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="5dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:onClick="@{() -> actions.actFor(actions.ACTION_OPEN_CONT)}"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_account_circle"
+                    android:tint="?android:colorBackground"
+                    app:layout_constraintEnd_toStartOf="@id/prefTabBtn"
+                    app:layout_constraintStart_toEndOf="@id/dialerTabBtn"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/dialerTabBtn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="5dp"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_dialer_sip"
+                    android:tint="@android:color/holo_green_light"
+                    app:layout_constraintEnd_toStartOf="@id/contactsTabBtn"
+                    app:layout_constraintStart_toEndOf="@id/reg_status_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/reg_status_image"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@{regState.registered ? @drawable/ic_check_circle : @drawable/ic_error }"
+                    android:tint="@{regState.registered ? @android:color/holo_green_light : @android:color/holo_red_light}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> actions.actFor(actions.ACTION_REG_RETRY)}"
-                android:text="@string/retry"
-                android:textColor="?colorPrimary"
-                android:visibility="@{regState.registered ? View.GONE : View.VISIBLE}" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="@{regState.pending ? View.GONE : View.VISIBLE}">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.format(@string/reg_status_fmt_ok, regState.reason)}"
+                    android:textColor="@{regState.registered ? @android:color/holo_green_dark : @android:color/holo_red_dark}" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> actions.actFor(actions.ACTION_REG_RETRY)}"
+                    android:text="@string/retry"
+                    android:textColor="?colorPrimary"
+                    android:visibility="@{regState.registered ? View.GONE : View.VISIBLE}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="5dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> actions.actFor(actions.ACTION_TOGGLE_MODE)}"
+                    android:scaleType="centerInside"
+                    android:src="@{mode == Constants.INPUT_MODE_SIP_ADDRESS ? @drawable/ic_dialpad : @drawable/ic_keyboard }"
+                    android:tint="?colorPrimary" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_dial_str"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@{mode == Constants.INPUT_MODE_SIP_ADDRESS ? @string/input_hint_sip : @string/input_hint_phone}"
+                    android:inputType="@{mode == Constants.INPUT_MODE_SIP_ADDRESS ? InputType.TYPE_CLASS_TEXT |  InputType.TYPE_TEXT_VARIATION_URI : InputType.TYPE_CLASS_PHONE }" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> actions.actFor(actions.ACTION_DIAL_NOW)}"
+                    android:text="@string/dial"
+                    app:icon="@drawable/ic_dialer_sip" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

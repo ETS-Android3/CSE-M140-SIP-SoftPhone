@@ -3,6 +3,7 @@ package me.chitholian.sipdialer
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import org.pjsip.pjsua2.CallOpParam
 
 class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener {
     lateinit var sipUa: SipUserAgent
@@ -18,6 +19,11 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
     }
 
     override fun onTerminate() {
+        state.call.postValue(state.call.value?.apply {
+            current?.destroy()
+            current = null
+            state = CallState.STATE_IDLE
+        })
         account?.destroy()
         account = null
         sipUa.destroy()
@@ -51,5 +57,17 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
     fun startSipUa() {
         sipUa.initialize()
         createAccountIfPossible()
+    }
+
+    fun initCall(destination: String) {
+        if (account != null && state.call.value?.state == CallState.STATE_IDLE) {
+            val call = TheCall(this, account!!, -1)
+            val prm = CallOpParam(true)
+            state.call.postValue(state.call.value?.apply {
+                state = CallState.STATE_DIALING
+                current = call
+            })
+            call.makeCall(destination, prm)
+        }
     }
 }

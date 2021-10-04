@@ -9,5 +9,8 @@ class Constants {
         const val KEY_SERVER = "key_server"
 
         const val REQ_RECORD_AUDIO = 100
+
+        const val INPUT_MODE_PHONE_NUMBER = 1
+        const val INPUT_MODE_SIP_ADDRESS = 2
     }
 }

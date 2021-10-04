@@ -1,5 +1,6 @@
 package me.chitholian.sipdialer
 
+import org.pjsip.pjsua2.AudioMedia
 import org.pjsip.pjsua2.Endpoint
 import org.pjsip.pjsua2.EpConfig
 import org.pjsip.pjsua2.TransportConfig
@@ -27,12 +28,30 @@ class SipUserAgent(val app: TheApp) {
     }
 
     fun destroy() {
+        Runtime.getRuntime().gc()
         if (initialized) {
+            // TODO: Handle runtime.
             endpoint.libDestroy()
             endpoint.delete()
             epConfig.delete()
             tpConfig.delete()
             initialized = false
+        }
+    }
+
+    fun startAudio(audioMedia: AudioMedia) {
+        if (initialized) {
+            // TODO: Handle exception.
+            endpoint.audDevManager().captureDevMedia.startTransmit(audioMedia)
+            audioMedia.startTransmit(endpoint.audDevManager().playbackDevMedia)
+        }
+    }
+
+    fun stopAudio(audioMedia: AudioMedia) {
+        if (initialized) {
+            // TODO: Handle exception.
+            audioMedia.stopTransmit(endpoint.audDevManager().playbackDevMedia)
+            endpoint.audDevManager().captureDevMedia.stopTransmit(audioMedia)
         }
     }
 }

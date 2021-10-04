@@ -2,4 +2,7 @@
     <string name="app_name">SIP Dialer</string>
     <string name="reg_status_fmt_ok">Registration %s</string>
     <string name="retry">Try Again</string>
+    <string name="input_hint_sip">sip:username@domain.com</string>
+    <string name="input_hint_phone">Phone Number</string>
+    <string name="dial">Dial</string>
 </resources>
