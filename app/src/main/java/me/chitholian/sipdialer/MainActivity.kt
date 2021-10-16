@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import me.chitholian.sipdialer.databinding.ActivityMainBinding
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), MainActivityActions {
     private lateinit var binding: ActivityMainBinding
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
             }
             MainActivityActions.ACTION_DIAL_NOW -> {
                 val text = binding.inputDialStr.text?.trim() ?: ""
+                var sipUri = ""
                 if (text.isEmpty()) {
                     Toast.makeText(
                         this,
@@ -96,7 +98,42 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
                     ).show()
                     return
                 }
-                app.initCall(text.toString())
+                // Check Input is Number or SIP URI
+                if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+$"))) {
+                    // Only Number is Given. Add protocol and server address.
+                    val server = app.prefs.getString(Constants.KEY_SERVER, "")
+                    if (server?.isNotEmpty() != true) {
+                        AlertDialog.Builder(this)
+                            .setMessage("No SIP server configured, please enter SIP Uri")
+                            .setPositiveButton("OK") { d, _ ->
+                                d.dismiss()
+                            }.create().show()
+                        return
+                    }
+                    sipUri = "sip:$text@$server"
+                } else if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
+                    // Add protocol.
+                    sipUri = "sip:$text"
+                } else if (!text.matches(Regex("^sips?:[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
+                    // Invalid Input.
+                    Toast.makeText(
+                        this,
+                        "Please Input a Valid Number or Uri to Dial",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+                try {
+                    app.initCall(sipUri)
+                } catch (e: Exception) {
+                    AlertDialog.Builder(this)
+                        .setMessage("Could not create call, error: ${e.message}")
+                        .setPositiveButton("OK") { d, _ ->
+                            d.dismiss()
+                        }.create().show()
+                    e.printStackTrace()
+                    return
+                }
                 startActivity(Intent(this, CallActivity::class.java))
             }
         }
