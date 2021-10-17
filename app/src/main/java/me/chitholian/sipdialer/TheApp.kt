@@ -101,4 +101,9 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
             am.isSpeakerphoneOn = turnOn
         }
     }
+
+    fun setMicMode(turnOff: Boolean) {
+        val am = getSystemService(AUDIO_SERVICE) as AudioManager
+        am.isMicrophoneMute = turnOff
+    }
 }

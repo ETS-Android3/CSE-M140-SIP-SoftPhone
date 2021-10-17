@@ -27,6 +27,7 @@ class TheCall(val app: TheApp, val account: TheAccount, callId: Int) : Call(acco
                 app.stopService(Intent(app, CallService::class.java))
                 app.stopRingTone()
                 app.setSpeakerMode(false)
+                app.setMicMode(false)
             }
             PJSIP_INV_STATE_EARLY -> {
                 callState = CallState.STATE_RINGING

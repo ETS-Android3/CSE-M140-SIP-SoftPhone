@@ -90,7 +90,14 @@ class CallActivity : AppCompatActivity(), CallScreenFunctions {
     }
 
     override fun toggleMute() {
-
+        var muted = false
+        app.state.call.value?.let {
+            muted = !it.isMuted
+        }
+        app.setMicMode(muted)
+        app.state.call.postValue(app.state.call.value?.apply {
+            isMuted = muted
+        })
     }
 
     override fun toggleHold() {
