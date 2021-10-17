@@ -3,6 +3,7 @@ package me.chitholian.sipdialer
 class Constants {
     companion object {
         const val SPLASH_DELAY = 500L
+        const val CALL_END_DELAY = 2000L
 
         const val KEY_USERNAME = "key_username"
         const val KEY_PASSWORD = "key_password"

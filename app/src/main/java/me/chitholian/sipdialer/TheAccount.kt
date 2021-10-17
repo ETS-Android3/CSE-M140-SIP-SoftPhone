@@ -1,8 +1,8 @@
 package me.chitholian.sipdialer
 
+import android.content.Intent
 import android.net.Uri
 import org.pjsip.pjsua2.*
-import org.pjsip.pjsua2.pjsip_status_code.PJSIP_SC_OK
 
 class TheAccount(val app: TheApp, var username: String, var password: String) : Account() {
     private var initialized = false
@@ -52,20 +52,25 @@ class TheAccount(val app: TheApp, var username: String, var password: String) : 
     override fun onIncomingCall(prm: OnIncomingCallParam?) {
         super.onIncomingCall(prm)
         val call = TheCall(this.app, this, prm?.callId ?: -1)
-        val callPrm = CallOpParam(true)
 
         // Check if a call is active, then reply busy.
         if (app.state.call.value?.state != CallState.STATE_IDLE) {
+            val callPrm = CallOpParam(true)
             callPrm.statusCode = 486
             call.answer(callPrm)
-            call.destroy()
+            return
         }
-        callPrm.statusCode = PJSIP_SC_OK
-        call.answer(callPrm)
-        app.state.call.postValue(app.state.call.value?.apply {
-            state = CallState.STATE_INCOMING
-            current?.destroy()
+        app.state.call.postValue(CallState(CallState.STATE_INCOMING).apply {
             current = call
+            remoteContact = (call.info.remoteUri ?: "").trim('<', '>')
         })
+        // Start Service
+        app.startService(Intent(app, CallService::class.java))
+        // Show CallScreen
+        app.startActivity(Intent(app, CallActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        })
+        // Play RING
+        app.playRingTone()
     }
 }

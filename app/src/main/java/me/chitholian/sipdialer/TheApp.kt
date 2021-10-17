@@ -2,12 +2,15 @@ package me.chitholian.sipdialer
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.media.MediaPlayer
+import android.media.RingtoneManager
 import androidx.preference.PreferenceManager
 import org.pjsip.pjsua2.CallOpParam
 
 class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener {
     lateinit var sipUa: SipUserAgent
     lateinit var prefs: SharedPreferences
+    private var ringtonePlayer: MediaPlayer? = null
     private var account: TheAccount? = null
     val state = AppState()
 
@@ -27,6 +30,7 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
         account?.destroy()
         account = null
         sipUa.destroy()
+        ringtonePlayer?.release()
         super.onTerminate()
     }
 
@@ -63,11 +67,27 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
         if (account != null && state.call.value?.state == CallState.STATE_IDLE) {
             val call = TheCall(this, account!!, -1)
             val prm = CallOpParam(true)
-            state.call.postValue(state.call.value?.apply {
-                state = CallState.STATE_DIALING
+            state.call.value = (CallState(CallState.STATE_DIALING).apply {
                 current = call
             })
             call.makeCall(destination, prm)
         }
+    }
+
+    fun playRingTone() {
+        ringtonePlayer?.stop()
+        ringtonePlayer?.release()
+        ringtonePlayer = MediaPlayer.create(
+            this,
+            RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE)
+        )
+        ringtonePlayer?.isLooping = true
+        ringtonePlayer?.start()
+    }
+
+    fun stopRingTone() {
+        ringtonePlayer?.stop()
+        ringtonePlayer?.release()
+        ringtonePlayer = null
     }
 }

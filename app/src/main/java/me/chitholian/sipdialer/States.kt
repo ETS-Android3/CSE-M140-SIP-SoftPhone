@@ -23,5 +23,24 @@ data class CallState(var state: Int = STATE_IDLE) {
         const val STATE_PROCESSING = 5
     }
 
+    var timeStart = 0L
+    var isOnHold = false
+    var isRemoteHold = false
+    var isSpeakerMode = false
+    var isMuted = false
+    var remoteContact = ""
+    var connected = false
+    val statusText: String
+        get() {
+            val flags = mutableListOf<String>()
+            if (isMuted) flags.add("Muted")
+            if (isOnHold) flags.add("On Hold")
+            if (isRemoteHold) flags.add("Remote Hold")
+            return flags.joinToString(" | ")
+        }
+
+    var lastStatusCode = 0
+    var lastStatusText = ""
+
     var current: TheCall? = null
 }

@@ -6,11 +6,158 @@
 
     <data>
 
+        <variable
+            name="callState"
+            type="me.chitholian.sipdialer.CallState" />
+
+        <variable
+            name="func"
+            type="me.chitholian.sipdialer.CallScreenFunctions" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profilePic"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_account_circle" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/callStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{func.getStatusText(callState)}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profilePic" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/contactText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{callState.remoteContact}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/callStatusText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{callState.statusText}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contactText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/callDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@{func.getCallDuration(callState)}"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:visibility="@{callState.connected ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusText" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="@{callState.state == callState.STATE_IDLE ? View.GONE :View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()-> func.answerCall()}"
+                android:tint="@android:color/holo_green_dark"
+                android:visibility="@{callState.state ==  callState.STATE_INCOMING ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/ic_telephone" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()-> func.toggleHold()}"
+                android:visibility="@{callState.state == callState.STATE_ONGOING ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/ic_pause" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()-> func.toggleSpeakerMode()}"
+                android:visibility="@{callState.state == callState.STATE_INCOMING ? View.GONE : View.VISIBLE}"
+                app:srcCompat="@drawable/ic_volume_up" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()-> func.toggleMute()}"
+                android:tint="@android:color/holo_green_dark"
+                android:visibility="@{callState.state == callState.STATE_ONGOING ? View.VISIBLE : View.GONE}"
+                app:srcCompat="@drawable/ic_mic" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()-> func.hangupCall()}"
+                android:tint="@android:color/holo_red_dark"
+                app:srcCompat="@drawable/ic_telephone" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
