@@ -2,6 +2,7 @@ package me.chitholian.sipdialer
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import androidx.preference.PreferenceManager
@@ -89,5 +90,9 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
         ringtonePlayer?.stop()
         ringtonePlayer?.release()
         ringtonePlayer = null
+    }
+
+    fun setSpeakerMode(turnOn: Boolean) {
+        sipUa
     }
 }

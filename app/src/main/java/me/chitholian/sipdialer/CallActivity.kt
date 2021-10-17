@@ -10,11 +10,13 @@ import androidx.databinding.DataBindingUtil
 import me.chitholian.sipdialer.databinding.ActivityCallBinding
 import org.pjsip.pjsua2.CallOpParam
 import org.pjsip.pjsua2.pjsua_call_flag
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class CallActivity : AppCompatActivity(), CallScreenFunctions {
     private lateinit var binding: ActivityCallBinding
     private lateinit var app: TheApp
+    private var clockTimer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +79,14 @@ class CallActivity : AppCompatActivity(), CallScreenFunctions {
     }
 
     override fun toggleSpeakerMode() {
-
+        var speakerMode = false
+        app.state.call.value?.let {
+            speakerMode = !it.isSpeakerMode
+        }
+        app.setSpeakerMode(speakerMode)
+        app.state.call.postValue(app.state.call.value?.apply {
+            isSpeakerMode = speakerMode
+        })
     }
 
     override fun toggleMute() {
@@ -114,6 +123,24 @@ class CallActivity : AppCompatActivity(), CallScreenFunctions {
             }
             it.current?.hangup(prm)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        clockTimer?.cancel()
+        clockTimer = Timer()
+        clockTimer?.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                runOnUiThread {
+                    binding.invalidateAll()
+                }
+            }
+        }, 0, 1000)
+    }
+
+    override fun onStop() {
+        clockTimer?.cancel()
+        super.onStop()
     }
 }
 

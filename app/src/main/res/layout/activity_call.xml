@@ -107,6 +107,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()-> func.toggleHold()}"
+                android:tint="@{callState.onHold ? @android:color/holo_red_dark : @android:color/darker_gray}"
                 android:visibility="@{callState.state == callState.STATE_ONGOING ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/ic_pause" />
 
@@ -121,6 +122,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()-> func.toggleSpeakerMode()}"
+                android:tint="@{callState.speakerMode ? @android:color/holo_green_dark : @android:color/darker_gray}"
                 android:visibility="@{callState.state == callState.STATE_INCOMING ? View.GONE : View.VISIBLE}"
                 app:srcCompat="@drawable/ic_volume_up" />
 
@@ -135,7 +137,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{()-> func.toggleMute()}"
-                android:tint="@android:color/holo_green_dark"
+                android:tint="@{callState.muted ? @android:color/holo_red_dark : @android:color/darker_gray}"
                 android:visibility="@{callState.state == callState.STATE_ONGOING ? View.VISIBLE : View.GONE}"
                 app:srcCompat="@drawable/ic_mic" />
 

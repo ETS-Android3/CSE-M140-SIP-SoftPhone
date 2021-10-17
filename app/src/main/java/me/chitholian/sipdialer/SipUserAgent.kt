@@ -1,9 +1,6 @@
 package me.chitholian.sipdialer
 
-import org.pjsip.pjsua2.AudioMedia
-import org.pjsip.pjsua2.Endpoint
-import org.pjsip.pjsua2.EpConfig
-import org.pjsip.pjsua2.TransportConfig
+import org.pjsip.pjsua2.*
 import org.pjsip.pjsua2.pjsip_transport_type_e.PJSIP_TRANSPORT_UDP
 
 class SipUserAgent(val app: TheApp) {
@@ -52,6 +49,19 @@ class SipUserAgent(val app: TheApp) {
             // TODO: Handle exception.
             audioMedia.stopTransmit(endpoint.audDevManager().playbackDevMedia)
             endpoint.audDevManager().captureDevMedia.stopTransmit(audioMedia)
+        }
+    }
+
+    fun setSpeakerMode(turnOn: Boolean) {
+        if (initialized) {
+            if (turnOn) {
+                endpoint.audDevManager()
+                    .setOutputRoute(pjmedia_aud_dev_route.PJMEDIA_AUD_DEV_ROUTE_LOUDSPEAKER, false)
+                endpoint.audDevManager().refreshDevs()
+            } else {
+                endpoint.audDevManager()
+                    .setOutputRoute(pjmedia_aud_dev_route.PJMEDIA_AUD_DEV_ROUTE_DEFAULT, true)
+            }
         }
     }
 }
