@@ -66,6 +66,24 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101 && resultCode == RESULT_OK) {
+            data?.data?.apply {
+                val proj = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                contentResolver.query(this, proj, null, null, null).use { c ->
+                    if (c?.moveToFirst() == true) {
+                        val numIdx = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                        var number = c.getString(numIdx)
+                        number = number.replace(" ", "")
+                        number = number.replace("-", "")
+                        dialNow(number)
+                    }
+                }
+            }
+        }
+    }
+
     override fun actFor(act: Int) {
         when (act) {
             MainActivityActions.ACTION_OPEN_PREF -> startActivity(
@@ -74,12 +92,15 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
                     PreferencesActivity::class.java
                 )
             )
-            MainActivityActions.ACTION_OPEN_CONT -> startActivity(
-                Intent(
-                    Intent.ACTION_PICK,
-                    ContactsContract.Contacts.CONTENT_URI
-                )
-            )
+            MainActivityActions.ACTION_OPEN_CONT -> {
+                val intent = Intent(Intent.ACTION_PICK).apply {
+                    type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+                }
+                /*if(intent.resolveActivity(packageManager) != null) {
+                    startActivityForResult(intent, 101)
+                }*/
+                startActivityForResult(intent, 101)
+            }
             MainActivityActions.ACTION_REG_RETRY -> app.createAccountIfPossible(true)
             MainActivityActions.ACTION_TOGGLE_MODE -> {
                 inputMode =
@@ -89,54 +110,58 @@ class MainActivity : AppCompatActivity(), MainActivityActions {
             }
             MainActivityActions.ACTION_DIAL_NOW -> {
                 val text = binding.inputDialStr.text?.trim() ?: ""
-                var sipUri = ""
-                if (text.isEmpty()) {
-                    Toast.makeText(
-                        this,
-                        "Please Input Number or Uri to Dial",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return
-                }
-                // Check Input is Number or SIP URI
-                if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+$"))) {
-                    // Only Number is Given. Add protocol and server address.
-                    val server = app.prefs.getString(Constants.KEY_SERVER, "")
-                    if (server?.isNotEmpty() != true) {
-                        AlertDialog.Builder(this)
-                            .setMessage("No SIP server configured, please enter SIP Uri")
-                            .setPositiveButton("OK") { d, _ ->
-                                d.dismiss()
-                            }.create().show()
-                        return
-                    }
-                    sipUri = "sip:$text@$server"
-                } else if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
-                    // Add protocol.
-                    sipUri = "sip:$text"
-                } else if (!text.matches(Regex("^sips?:[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
-                    // Invalid Input.
-                    Toast.makeText(
-                        this,
-                        "Please Input a Valid Number or Uri to Dial",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return
-                }
-                try {
-                    app.initCall(sipUri)
-                } catch (e: Exception) {
-                    AlertDialog.Builder(this)
-                        .setMessage("Could not create call, error: ${e.message}")
-                        .setPositiveButton("OK") { d, _ ->
-                            d.dismiss()
-                        }.create().show()
-                    e.printStackTrace()
-                    return
-                }
-                startActivity(Intent(this, CallActivity::class.java))
+                dialNow(text.toString())
             }
         }
+    }
+
+    private fun dialNow(text: String) {
+        var sipUri = ""
+        if (text.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Please Input Number or Uri to Dial",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        // Check Input is Number or SIP URI
+        if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+$"))) {
+            // Only Number is Given. Add protocol and server address.
+            val server = app.prefs.getString(Constants.KEY_SERVER, "")
+            if (server?.isNotEmpty() != true) {
+                AlertDialog.Builder(this)
+                    .setMessage("No SIP server configured, please enter SIP Uri")
+                    .setPositiveButton("OK") { d, _ ->
+                        d.dismiss()
+                    }.create().show()
+                return
+            }
+            sipUri = "sip:$text@$server"
+        } else if (text.matches(Regex("^[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
+            // Add protocol.
+            sipUri = "sip:$text"
+        } else if (!text.matches(Regex("^sips?:[a-zA-Z0-9_+*#.,;-]+@[a-zA-Z0-9_+.-]+(:[0-9]{1,5})?$"))) {
+            // Invalid Input.
+            Toast.makeText(
+                this,
+                "Please Input a Valid Number or Uri to Dial",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        try {
+            app.initCall(sipUri)
+        } catch (e: Exception) {
+            AlertDialog.Builder(this)
+                .setMessage("Could not create call, error: ${e.message}")
+                .setPositiveButton("OK") { d, _ ->
+                    d.dismiss()
+                }.create().show()
+            e.printStackTrace()
+            return
+        }
+        startActivity(Intent(this, CallActivity::class.java))
     }
 
     override fun onResume() {
