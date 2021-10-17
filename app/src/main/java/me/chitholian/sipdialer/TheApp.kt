@@ -7,6 +7,7 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 import androidx.preference.PreferenceManager
 import org.pjsip.pjsua2.CallOpParam
+import java.lang.Exception
 
 class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener {
     lateinit var sipUa: SipUserAgent
@@ -93,6 +94,11 @@ class TheApp : Application(), SharedPreferences.OnSharedPreferenceChangeListener
     }
 
     fun setSpeakerMode(turnOn: Boolean) {
-        sipUa
+        try {
+            sipUa.setSpeakerMode(turnOn)
+        } catch (e: Exception) {
+            val am = getSystemService(AUDIO_SERVICE) as AudioManager
+            am.isSpeakerphoneOn = turnOn
+        }
     }
 }
