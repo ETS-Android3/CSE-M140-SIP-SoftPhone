@@ -129,6 +129,7 @@ class CallActivity : AppCompatActivity(), CallScreenFunctions {
                 app.stopRingTone()
             }
             it.current?.hangup(prm)
+            clockTimer?.cancel()
         }
     }
 
