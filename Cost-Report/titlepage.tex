@@ -1,0 +1,25 @@
+\begin{titlepage}
+    \newgeometry{margin=1in}
+    \linespread{1.75}
+    \begin{center}
+        \large
+        {\Huge\textbf{\thesistitle}}
+        \ifdefined\ARCTHIRDCOPY
+            \vfill By \vfill
+            \textbf{\MakeUppercase{\myname}} \\ ID: \mystdid \\ Session: \mysession \\ \textbf{\itshape \mydegree}
+            \\ Course Code: CSE M140 \\ Course Title: Advanced Software Engineering
+            \vfill \raisebox{-.5\height}{\includegraphics[height=5cm]{cu-logo}} \vfill
+            {\itshape\Large Submitted to} \\
+            {\textbf{\supervisorname}} \\ \supdesignation \vfill
+        \else
+            \vfill \raisebox{-.5\height}{\includegraphics[height=8cm]{cu-logo}} \vfill
+        \fi
+
+        \vfill Department of {\textbf{\deptname \\
+        \institutename}} \vfill
+        \noindent\rule{\textwidth}{1pt} \\
+        Copyright \copyright \ Department of \\
+        \textbf{\deptname, \institutename} \\ \mydate
+    \end{center}
+    \restoregeometry
+\end{titlepage}

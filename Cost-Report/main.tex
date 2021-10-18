@@ -1,0 +1,29 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\input{preamble}
+\begin{document}
+\pagenumbering{roman}
+
+\input{titlepage}
+\clearpage
+
+ \tableofcontents
+ 
+\clearpage
+
+\begin{chapters}
+    \input{chap-01}
+    \input{chap-02}
+    \input{chap-03}
+\end{chapters}
+
+\printnoidxglossary
+\printnoidxglossary[type=\acronymtype]
+
+\clearpage
+\begin{appendices}
+    \input{appendices}
+\end{appendices}
+
+\clearpage
+\end{document}

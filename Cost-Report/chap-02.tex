@@ -1,0 +1,133 @@
+\chapter{The COCOMO Model}
+Boehm proposed COCOMO (Constructive Cost Estimation Model) in 1981. COCOMO is one of the most generally used software estimation models in the world. COCOMO predicts the efforts and schedule of a software product based on the size of the software.
+
+\section{Steps in COCOMO}
+The necessary steps in this model are:
+
+\begin{enumerate}
+ \item Get an initial estimate of the development effort from evaluation of thousands of delivered lines of source code (KDLOC).
+ \item Determine a set of 15 multiplying factors from various attributes of the project.
+ \item Calculate the effort estimate by multiplying the initial estimate with all the multiplying factors i.e., multiply the values in step 1 and step 2.
+\end{enumerate}
+
+The initial estimate (also called nominal estimate) is determined by an equation of the form used in the static single variable models, using KDLOC as the measure of the size. To determine the initial effort Ei in person-months the equation used is of the type is shown below:
+
+$$E_i = a \times (KDLOC)^b$$
+The value of the constant $a$ and $b$ are depends on the project type.
+
+\section{Project Categories}
+In COCOMO, projects are categorized into three types:
+
+\begin{enumerate}
+ \item Organic
+ \item Semidetached
+ \item Embedded
+\end{enumerate}
+
+\subsection{Organic}
+A development project can be treated of the organic type, if the project deals with developing a well-understood application program, the size of the development team is reasonably small, and the team members are experienced in developing similar methods of projects.
+
+\subsection{Semidetached}
+A development project can be treated with semidetached type if the development consists of a mixture of experienced and inexperienced staff. Team members may have finite experience in related systems but may be unfamiliar with some aspects of the order being developed.
+
+\subsection{Embedded}
+A development project is treated to be of an embedded type, if the software being developed is strongly coupled to complex hardware, or if the stringent regulations on the operational method exist.
+
+\section{COCOMO Stages}
+For three product categories, Bohem provides a different set of expression to predict effort (in a unit of person month)and development time from the size of estimation in KLOC(Kilo Line of code) efforts estimation takes into account the productivity loss due to holidays, weekly off, coffee breaks, etc.
+
+According to Boehm, software cost estimation should be done through three stages:
+
+\begin{enumerate}
+ \item Basic Model
+ \item Intermediate Model
+ \item Detailed Model
+\end{enumerate}
+
+\subsection{Basic COCOMO Model}
+The basic COCOMO model provide an accurate size of the project parameters. The following expressions give the basic COCOMO estimation model:
+
+$$Effort = a_1 \times (KLOC) ^ {a_2}$$
+$$Tdev = b_1 \times (efforts) ^ {b_2}$$
+\\
+Where, \\
+$KLOC$ is the estimated size of the software product indicate in Kilo Lines of Code; $a_1, a_2, b_1, b_2$ are constants for each group of software products. \\
+$Tdev$ is the estimated time to develop the software, expressed in months.
+$Effort$ = the total effort required to develop the software product, expressed in person months (PMs).
+
+\subsubsection{Estimation of Development Effort}
+For the three classes of software products, the formulas for estimating the effort based on the code size are shown below:
+
+\begin{itemize}
+ \item \textbf{Organic} : Effort = $2.4 \times (KLOC) ^ {1.05}$ PM
+ \item \textbf{Semi-detached} : Effort = $3.0 \times (KLOC) ^ {1.12}$ PM
+ \item \textbf{Embedded} : Effort = $3.6 \times (KLOC) ^ {1.20}$ PM
+\end{itemize}
+
+\subsubsection{Estimation of Development Time}
+For the three classes of software products, the formulas for estimating the development time based on the effort are given below:
+
+\begin{itemize}
+ \item \textbf{Organic} : Tdev = $2.5 \times (Effort) ^ {0.38}$ Months
+ \item \textbf{Semi-detached} : Tdev = $2.5 \times (Effort) ^ {0.35}$ Months
+ \item \textbf{Embedded} : Tdev = $2.5 \times (Effort) ^ {0.32}$ Months
+\end{itemize}
+
+From the effort estimation, the project cost can be obtained by multiplying the required effort by the manpower cost per month. But, implicit in this project cost computation is the assumption that the entire project cost is incurred on account of the manpower cost alone. In addition to manpower cost, a project would incur costs due to hardware and software required for the project and the company overheads for administration, office space, etc.
+
+It is important to note that the effort and the duration estimations obtained using the COCOMO model are called a nominal effort estimate and nominal duration estimate. The term nominal implies that if anyone tries to complete the project in a time shorter than the estimated duration, then the cost will increase drastically. But, if anyone completes the project over a longer period of time than the estimated, then there is almost no decrease in the estimated cost value.
+
+\subsection{Intermediate Model}
+The basic COCOMO model considers that the effort is only a function of the number of lines of code and some constants calculated according to the various software systems. The intermediate COCOMO model recognizes these facts and refines the initial estimates obtained through the basic COCOMO model by using a set of 15 cost drivers based on various attributes of software engineering.
+
+\subsubsection{Classification of Cost Drivers and Their Attributes}
+
+\begin{enumerate}
+ \item Product Attributes
+ \begin{itemize}
+  \item Required software reliability extent
+  \item Size of the application database
+  \item The complexity of the product
+ \end{itemize}
+
+ \item Hardware Attributes
+ \begin{itemize}
+  \item Run-time performance constraints
+  \item Memory constraints
+  \item The volatility of the virtual machine environment
+  \item Required turnabout time
+ \end{itemize}
+
+ \item Personnel Attributes
+ \begin{itemize}
+  \item Analyst capability
+  \item Software engineering capability
+  \item Applications experience
+  \item Virtual machine experience
+  \item Programming language experience
+ \end{itemize}
+
+ \item Project Attributes
+ \begin{itemize}
+  \item Use of software tools
+  \item Application of software engineering methods
+  \item Required development schedule
+ \end{itemize}
+\end{enumerate}
+
+
+\subsection{Detailed COCOMO Model}
+Detailed COCOMO incorporates all qualities of the standard version with an assessment of the cost driver's effect on each method of the software engineering process. The detailed model uses various effort multipliers for each cost driver property. In detailed COCOMO, the whole software is differentiated into multiple modules, and then we apply COCOMO in various modules to estimate effort and then sum the effort.
+
+The Six phases of detailed COCOMO are:
+
+\begin{enumerate}
+ \item Planning and requirements
+ \item System structure
+ \item Complete structure
+ \item Module code and test
+ \item Integration and test
+ \item Cost Constructive model
+\end{enumerate}
+
+The effort is determined as a function of program estimate, and a set of cost drivers are given according to every phase of the software life-cycle.

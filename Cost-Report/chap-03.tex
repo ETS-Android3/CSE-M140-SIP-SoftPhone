@@ -1,0 +1,66 @@
+\chapter{Applying COCOMO}
+COCOMO is one of the most generally used software estimation models in the world. COCOMO predicts the efforts and schedule of a software product based on the size of the software.
+
+Here, we have applied COCOMO to estimate the costs of our project.
+
+\section{Software Function Points}
+A Function Point (FP) is a unit of measurement to express the amount of business functionality, an information system (as a product) provides to a user. FPs measure software size. They are widely accepted as an industry standard for functional sizing.
+
+Our project contains following function points:
+
+\begin{enumerate}
+ \item App Preference Management
+ \item SIP Registration
+ \item Initiate Outgoing Call
+ \item Receive Incoming Call
+ \item Hangup a Call
+ \item Encode / Decode Voice Data
+ \item Record Voice from Microphone
+ \item Send Voice over the network
+ \item Receive Voice over the network
+ \item Play Voice to Earpiece / Speaker
+ \item Manage Loudspeaker Mode
+ \item Perform Call Hold / Unhold
+ \item Do Mute / Unmute Microphone
+ \item Generate following UI Pages:
+ \begin{itemize}
+  \item App Splash Screen
+  \item Home Page
+  \item Settings Page
+  \item Incoming Call Screen
+  \item Active Call Screen
+ \end{itemize}
+
+\end{enumerate}
+
+\section{Lines of Code}
+Source lines of code (SLOC), also known as lines of code (LOC), is a software metric used to measure the size of a computer program by counting the number of lines in the text of the program's source code.
+
+Our project is estimated to contain approximately \textbf{2,000} lines of code ($2.0 KLOC$). It excludes auto-generated Java source code and JNI library implementation of entire PJSIP, PJSUA and PJMEDIA stack along with different audio codecs and channel management.
+
+\section{Cost Calculation}
+The basic COCOMO equation takes the form:
+$$Effort = a_1 \times (KLOC) ^ {a_2}$$
+$$Tdev = b_1 \times (efforts) ^ {b_2}$$
+
+Our project size is estimated to be \textbf{2.0 KLOC}.
+
+This is a service oriented, organic category of project. Here, $a_1 = 2.4$, $a_2 = 1.05$, $b_1 = 2.5$, $b_2 = 0.38$. \\
+Therefore, \\
+\\
+Effort, $E = 2.4 \times (2.0) ^ {1.05} = 4.97$ PM \\
+Tdev, $D = 2.5 \times (4.97) ^ {0.38} = 4.60$ PM.
+\\
+\\
+Monthly average salary of each developer involved in this project team is around \textbf{30,000 TK}. \\
+Cost for employee salaries = $30,000 \times 4.60 = 1,38,000$ TK.\\
+Company revenue policy is \textbf{30\%}.
+
+Therefore, total costs calculated is: $1,38,000 \div ({1 - 0.30}) = 1,97,143$ TK.
+
+\section{Summary}
+Using an estimation of \textbf{2,000} lines of code with employees of an average of \textbf{30,000} TK monthly salaries, the project cost is given bellow including \textbf{30\%} company's revenue:
+\\
+\begin{center}
+    \huge 1,97,143 TK.
+\end{center}

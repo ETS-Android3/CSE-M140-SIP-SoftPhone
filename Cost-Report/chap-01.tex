@@ -1,0 +1,57 @@
+\chapter{Introduction}
+For any new software project, it is necessary to know how much it will cost to develop and how much development time will it take. These estimates are needed before development is initiated, but how is this done? Several estimation procedures have been developed and are having the following attributes in common.
+
+\begin{enumerate}
+ \item Project scope must be established in advanced.
+ \item Software metrics are used as a support from which evaluation is made.
+ \item The project is broken into small PCs which are estimated individually.
+  To achieve true cost \& schedule estimate, several option arise.
+ \item Delay estimation.
+ \item Used symbol decomposition techniques to generate project cost and schedule estimates.
+ \item Acquire one or more automated estimation tools.
+\end{enumerate}
+
+\section{Cost Estimation Models}
+A model may be static or dynamic. In a static model, a single variable is taken as a key element for calculating cost and time. In a dynamic model, all variable are interdependent, and there is no basic variable.
+
+\subsection{Static, Single Variable Models}
+When a model makes use of single variables to calculate desired values such as cost, time, efforts, etc. is said to be a single variable model. The most common equation is:
+
+$$C = aL^{b}$$
+Where, \\
+$C$ = Costs \\
+$L$ = Size \\
+$a$ and $b$ are constants.
+
+The Software Engineering Laboratory established a model called SEL model, for estimating its software production. This model is an example of the static, single variable model.
+\\ \\
+$E = 1.4L^{0.93}$ \\
+$DOC = 30.4L^{0.90}$ \\
+$D = 4.6L^{0.26}$ \\
+\\
+Where, \\
+$E$ = Efforts (Person-Month)\\
+$DOC$ = Documentation (Number of Pages) \\
+$D$ = Duration (in months) \\
+$L$ = Number of Lines of Code.
+
+\subsection{Static, Multivariable Models}
+These models are based on method above, they depend on several variables describing various aspects of the software development environment. In some model, several variables are needed to describe the software development process, and selected equation combined these variables to give the estimate of time \& cost. These models are called multivariable models.
+
+WALSTON and FELIX develop the models at IBM provide the following equation gives a relationship between lines of source code and effort:
+
+$$E = 5.2L^{0.91}$$
+In the same manner duration of development is given by:
+$$D = 4.1L^{0.36}$$
+
+The productivity index uses 29 variables which are found to be highly correlated productivity as follows:
+
+$$I = \sum_{i=1}^{29} W_iX_i$$
+\\
+Where, $W_i$ is the weight factor for the $i^{th}$ variable and $X_i = \{-1,0,+1\}$. The estimator gives $X_i$ one of the values $-1$, $0$ or $+1$ depending on the variable decreases, has no effect or increases the productivity.
+
+\section{Model We Used}
+Boehm proposed COCOMO (Constructive Cost Estimation Model) in 1981. COCOMO is one of the most generally used software estimation models in the world. COCOMO predicts the efforts and schedule of a software product based on the size of the software.
+
+In this project we have used COCOMO to estimate our project costs.
+In next chapters we shall discuss details about COCOMO. We also will show our calculation of cost estimation in this project using COCOMO in the next chapters.
