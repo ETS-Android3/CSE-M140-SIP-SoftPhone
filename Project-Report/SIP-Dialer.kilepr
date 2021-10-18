@@ -48,18 +48,6 @@ encoding=UTF-8
 highlight=LaTeX
 mode=LaTeX
 
-[item:chap-05.tex]
-archive=true
-encoding=UTF-8
-highlight=LaTeX
-mode=LaTeX
-
-[item:glossaries.tex]
-archive=true
-encoding=UTF-8
-highlight=LaTeX
-mode=LaTeX
-
 [item:images/cu-logo.png]
 archive=true
 encoding=
