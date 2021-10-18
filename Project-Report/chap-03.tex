@@ -1,191 +1,89 @@
-\chapter{Requirement Engineering}
-Requirements engineering (RE) refers to the process of defining, documenting, and maintaining requirements in the engineering design process. Requirement engineering provides the appropriate mechanism to understand what the customer desires, analyzing the need, and assessing feasibility, negotiating a reasonable solution, specifying the solution clearly, validating the specifications and managing the requirements as they are transformed into a working system. Thus, requirement engineering is the disciplined application of proven principles, methods, tools, and notation to describe a proposed system's intended behavior and its associated constraints.
+\chapter{System Design and Architechure}
+System design is the process of designing the elements of a system such as the architecture, modules and components, the different interfaces of those components and the data that goes through that system.
+
+\section{Use Cases}
+\begin{figure}[H]
+    \centering
+    \includegraphics{UseCase}
+    \caption{Use Case Diagram}
+    \label{fig:use_case}
+\end{figure}
+
+\section{Activity Diagrams}
+An activity diagram is a behavioral diagram i.e. it depicts the behavior of a system. An activity diagram portrays the control flow from a start point to a finish point showing the various decision paths that exist while the activity is being executed.
+
+\subsection{User Registration}
+\begin{figure}[H]
+    \centering
+    \includegraphics{RegActivity}
+    \caption{Activity Diagram for SIP User Registration}
+    \label{fig:reg_activity}
+\end{figure}
+
+\subsection{Make Outgoing Call}
+\begin{figure}[H]
+    \centering
+    \includegraphics{OutgoingActivity}
+    \caption{Activity Diagram for Outgoing Calls}
+    \label{fig:out_activity}
+\end{figure}
+
+\subsection{Receive Incoming Call}
+\begin{figure}[H]
+    \centering
+    \includegraphics{ReceiveActivity}
+    \caption{Activity Diagram for Incoming Calls}
+    \label{fig:recv_activity}
+\end{figure}
+
+\subsection{Call a Saved Contact}
+\begin{figure}[H]
+    \centering
+    \includegraphics{SavedActivity}
+    \caption{Activity Diagram for Calling a Saved Contact}
+    \label{fig:saved_activity}
+\end{figure}
+\clearpage
+
+\section{User Interface Prototypes}
+Prototypes are a close replica of what the end result of a product will look like, usually without code. They incorporate most of the final UI design and interaction that the finished product will have. Prototyping is one of the most powerful tools in a UX designer's inventory.
 \\ \\
-In this chapter we have discussed following topics:
-
+We have designed following UI prototypes:
 \begin{enumerate}
- \item Requirement Elicitation and Analysis
- \item User Requirement Definition
- \item System Requirement Specification
- \item Requirement Validation
-\end{enumerate}
-\clearpage
-
-\section{Requirement Elicitation and Analysis}
-This is also known as the gathering of requirements. Here, requirements are identified with the help of customers and existing systems processes, if available.
-\\
-Analysis of requirements starts with requirement elicitation. The requirements are analyzed to identify inconsistencies, defects, omission, etc. We describe requirements in terms of relationships and also resolve conflicts if any.
-
-\subsection{Problems of Elicitation and Analysis}
-
-\begin{itemize}
- \item Getting all, and only, the right people involved.
- \item Stakeholders often don't know what they want.
- \item Stakeholders express requirements in their terms.
- \item Stakeholders may have conflicting requirements.
- \item Requirement change during the analysis process.
- \item Organizational and political factors may influence system requirements.
-\end{itemize}
-
-\subsection{Our Strategies Applied in RE}
-We used following techniques to elicit and gather requirements:
-\begin{itemize}
- \item Arranged Interviews with Stakeholders.
- \item Supplied Questionnaires to the Stakeholders.
- \item Inspected Current Working Environment.
-\end{itemize}
-\clearpage
-
-\section{User Requirement Definition}
-User requirements, often referred to as user needs, describe what the user does with the system, such as what activities that users must be able to perform. User requirements are generally documented in a User Requirements Document (URD) using narrative text. User requirements are generally signed off by the user and used as the primary input for creating system requirements.
-
-\subsection{Customer's Story}
-We have many branch-offices across the country as well as outside the country. Our office staffs need frequent communication with one another regardless of the location. We need a customized, full-featured, Internet-based telephony system for cost-effective communication. We are currently using traditional telephony systems provided by the mobile-phone operators along with other Internet based solutions like WhatsApp. But they are not so flexible to meet our customizations. Moreover, cost is too high for international calling.
-
-We need a mobile application that can be used to dial and receive calls with flexible functionality and low-cost for both national and international calls.
-
-The system must have following functions:
-\begin{enumerate}
- \item User Registration
- \item Make Outgoing Calls
- \item Receive Incoming Calls
- \item Calling Saved Contacts
+ \item Application's Home Screen
+ \item App Settings Screen
+ \item Incoming Call Screen
+ \item Active In-Call Screen
 \end{enumerate}
 
-The system is expected to have following features too:
-\begin{enumerate}
- \item Security
- \item Privacy
- \item Authenticity
-\end{enumerate}
+\subsection{App Home Screen}
+\begin{figure}[H]
+    \centering
+    \frame{\includegraphics[width=.65\textwidth]{home}}
+    \caption{UI Prototype of App Home Screen}
+    \label{fig:app_home}
+\end{figure}
 
+\subsection{Settings Screen}
+\begin{figure}[H]
+    \centering
+    \frame{\includegraphics[width=.65\textwidth]{settings}}
+    \caption{UI Prototype of Settings Screen}
+    \label{fig:app_set}
+\end{figure}
 
-\section{System Requirement Specification}
-System requirements are the building blocks developers use to build the system. These are the traditional “shall” statements that describe what the system “shall do.” System requirements are classified as either functional or supplemental requirements. A functional requirement specifies something that a user needs to perform their work.
+\subsection{Incoming Call Screen}
+\begin{figure}[H]
+    \centering
+    \frame{\includegraphics[width=.65\textwidth]{incoming}}
+    \caption{UI Prototype of Incoming Call Screen}
+    \label{fig:app_incoming}
+\end{figure}
 
-Supplemental or non-functional requirements specify all the remaining requirements not covered by the functional requirements.
-
-\subsection{Functional Requirements}
-A Functional Requirement (FR) is a description of the service that the software must offer. It describes a software system or its component.
-
-We identified following functional requirements:
-
-\begin{enumerate}
- \item User Registration
- \\ Preconditions:
- \begin{enumerate}
-  \item User must have a valid account in SIP registrar.
-  \item User must have network connectivity with the server.
- \end{enumerate}
-
- Procedure:
- \begin{enumerate}
-  \item User opens the app.
-  \item User clicks settings icon.
-  \item User inputs username, password and SIP server address.
-  \item System sends registration request to SIP Registrar.
- \end{enumerate}
-
- Post Conditions:
- \begin{enumerate}
-  \item System shows green icon and success message.
- \end{enumerate}
-
-
- \item Making Outgoing Call
- \\ Preconditions:
- \begin{enumerate}
-  \item Callee must be registered to the SIP registrar.
-  \item Users must have network connectivity with the server.
- \end{enumerate}
-
- Procedure:
- \begin{enumerate}
-  \item User opens the app.
-  \item User inputs callee's number or username.
-  \item User clicks Dial button.
-  \item System sends SIP invite to the server.
-  \item System shows outgoing call screen.
-  \item System receives SIP OK status from the server.
-  \item System starts call duration timer.
-  \item Parties start speaking.
- \end{enumerate}
-
- Post Conditions:
- \begin{enumerate}
-  \item System shows call-screen with status.
- \end{enumerate}
-
-
- \item Receive Incoming Call
- \\ Preconditions:
- \begin{enumerate}
-  \item Callee must be registered to the SIP registrar.
-  \item Users must have network connectivity with the server.
- \end{enumerate}
-
- Procedure:
- \begin{enumerate}
-  \item System receives SIP invite from the server.
-  \item System shows incoming call screen and plays ringtone.
-  \item User clicks green Pick-Call icon.
-  \item System sends SIP OK status to the server.
-  \item System starts call duration timer.
-  \item Parties start speaking.
- \end{enumerate}
-
- Post Conditions:
- \begin{enumerate}
-  \item System shows call-screen with status.
- \end{enumerate}
-
-
- \item Call to a Saved Contact
- \\ Preconditions:
- \begin{enumerate}
-  \item Callee must be registered to the SIP registrar.
-  \item Users must have network connectivity with the server.
- \end{enumerate}
-
- Procedure:
- \begin{enumerate}
-  \item User opens the app.
-  \item User clicks Contacts icon.
-  \item System shows select-contact window.
-  \item User selects target contact.
-  \item System sends SIP invite to the server.
-  \item System shows outgoing call screen.
-  \item System receives SIP OK status from the server.
-  \item System starts call duration timer.
-  \item Parties start speaking.
- \end{enumerate}
-
- Post Conditions:
- \begin{enumerate}
-  \item System shows call-screen with status.
- \end{enumerate}
-\end{enumerate}
-
-
-\subsection{Non-Functional Requirements}
-\subsubsection{Security}
-The system stores user's credential using android's preference feature. It can be accessed by the owner application. Thus system is secure in terms of credentials.
-
-\subsubsection{Privacy}
-The communication happens through the private network of the customer's company. Therefore, others cannot access the data transferred through it. This the system maintains privacy.
-
-\subsubsection{Authenticity}
-The system requires user registration to call via the Private Branch Exchange (PBX) server. Only registered and authenticated users can make call. Thus the system maintaining authentication.
-
-
-\section{Requirement Validation}
-Requirements validation is the process of checking that requirements defined for development, define the system that the customer really wants. To check issues related to requirements, we perform requirements validation.
-\begin{itemize}
- \item Completeness checks
- \item Consistency checks
- \item Validity checks
- \item Realism checks
- \item Ambiguity checks
- \item Verifiability
-\end{itemize}
-\clearpage
+\subsection{Active Call Screen}
+\begin{figure}[H]
+    \centering
+    \frame{\includegraphics[width=.65\textwidth]{in-call}}
+    \caption{UI Prototype of Active Call Screen}
+    \label{fig:app_in_call}
+\end{figure}

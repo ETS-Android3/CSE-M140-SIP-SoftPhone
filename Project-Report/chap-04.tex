@@ -1,89 +1,72 @@
-\chapter{System Design and Architechure}
-System design is the process of designing the elements of a system such as the architecture, modules and components, the different interfaces of those components and the data that goes through that system.
+\chapter{System Testing}
+System testing is testing conducted on a complete integrated system to evaluate the system's compliance with its specified requirements. System testing takes, as its input, all of the integrated components that have passed integration testing.
 
-\section{Use Cases}
 \begin{figure}[H]
     \centering
-    \includegraphics{UseCase}
-    \caption{Use Case Diagram}
-    \label{fig:use_case}
+    \includegraphics[width=\textwidth]{testing}
+    \caption{System Testing Process}
+    \label{fig:testing_process}
 \end{figure}
 
-\section{Activity Diagrams}
-An activity diagram is a behavioral diagram i.e. it depicts the behavior of a system. An activity diagram portrays the control flow from a start point to a finish point showing the various decision paths that exist while the activity is being executed.
-
-\subsection{User Registration}
-\begin{figure}[H]
-    \centering
-    \includegraphics{RegActivity}
-    \caption{Activity Diagram for SIP User Registration}
-    \label{fig:reg_activity}
-\end{figure}
-
-\subsection{Make Outgoing Call}
-\begin{figure}[H]
-    \centering
-    \includegraphics{OutgoingActivity}
-    \caption{Activity Diagram for Outgoing Calls}
-    \label{fig:out_activity}
-\end{figure}
-
-\subsection{Receive Incoming Call}
-\begin{figure}[H]
-    \centering
-    \includegraphics{ReceiveActivity}
-    \caption{Activity Diagram for Incoming Calls}
-    \label{fig:recv_activity}
-\end{figure}
-
-\subsection{Call a Saved Contact}
-\begin{figure}[H]
-    \centering
-    \includegraphics{SavedActivity}
-    \caption{Activity Diagram for Calling a Saved Contact}
-    \label{fig:saved_activity}
-\end{figure}
+\section{Types of System Testing}
+\begin{itemize}
+ \item Performance Testing
+ \item Load Testing
+ \item Stress Testing
+ \item Scalability Testing
+\end{itemize}
 \clearpage
 
-\section{User Interface Prototypes}
-Prototypes are a close replica of what the end result of a product will look like, usually without code. They incorporate most of the final UI design and interaction that the finished product will have. Prototyping is one of the most powerful tools in a UX designer's inventory.
-\\ \\
-We have designed following UI prototypes:
-\begin{enumerate}
- \item Application's Home Screen
- \item App Settings Screen
- \item Incoming Call Screen
- \item Active In-Call Screen
-\end{enumerate}
+\section{Our System Tests and Results}
 
-\subsection{App Home Screen}
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \frame{\includegraphics[width=.65\textwidth]{home}}
-    \caption{UI Prototype of App Home Screen}
-    \label{fig:app_home}
-\end{figure}
+    \begin{tabular}{|l|l|l|c|} \hline
+        Test Case & Expectation & Reality & Result \\\hline\hline
+        Username invalid & Registration fails & Registration fails & Passed \\\hline
+        Password invalid & Registration fails & Registration fails & Passed \\\hline
+        Server invalid & Registration fails & Registration fails & Passed \\\hline
+        Credentials not given & Does not register & Does not register & Passed \\\hline
+        Server not given & Does not register & Does not register & Passed \\\hline
+        Server offline & Registration timeout & Registration timeout & Passed \\\hline
+    \end{tabular}
+    \caption{Registration Test Cases and Results}
+    \label{tab:reg_test}
+\end{table}
 
-\subsection{Settings Screen}
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \frame{\includegraphics[width=.65\textwidth]{settings}}
-    \caption{UI Prototype of Settings Screen}
-    \label{fig:app_set}
-\end{figure}
+    \begin{tabular}{|l|l|l|c|} \hline
+        Test Case & Expectation & Reality & Result \\\hline\hline
+        Dial Clicked without input & Asks for input & Asks for input & Passed \\\hline
+        Invalid phone number & Asks for valid input & Asks for valid input & Passed \\\hline
+        No contact selected & Does not call & Does not call & Passed \\\hline
+    \end{tabular}
+    \caption{Outgoing Call Test Cases and Results}
+    \label{tab:out_test}
+\end{table}
 
-\subsection{Incoming Call Screen}
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \frame{\includegraphics[width=.65\textwidth]{incoming}}
-    \caption{UI Prototype of Incoming Call Screen}
-    \label{fig:app_incoming}
-\end{figure}
+    \begin{tabular}{|l|l|l|c|} \hline
+        Test Case & Expectation & Reality & Result \\\hline\hline
+        Hangup button clicked & Call Rejected & Call Rejected & Passed \\\hline
+        Incoming call during another & Rejects but first & Rejects but first & Passed \\\hline
+    \end{tabular}
+    \caption{Incoming Call Test Cases and Results}
+    \label{tab:incoming_test}
+\end{table}
 
-\subsection{Active Call Screen}
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \frame{\includegraphics[width=.65\textwidth]{in-call}}
-    \caption{UI Prototype of Active Call Screen}
-    \label{fig:app_in_call}
-\end{figure}
+    \begin{tabular}{|l|l|l|c|} \hline
+        Test Case & Expectation & Reality & Result \\\hline\hline
+        Loudspeaker clicked & Toggles Speaker & Toggles Speaker & Passed \\\hline
+        Hold button clicked & Toggles Local Hold & Toggles Local Hold & Passed \\\hline
+        Mute button clicked & Toggles Microphone & Toggles Microphone & Passed \\\hline
+        Hangup button clicked & Call terminates & Call terminates & Passed \\\hline
+        Incoming call during another & Rejects but first & Rejects but first & Passed \\\hline
+    \end{tabular}
+    \caption{Active Call Test Cases and Results}
+    \label{tab:in_call_test}
+\end{table}
